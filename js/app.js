@@ -3,7 +3,7 @@
   'use strict';
   const S = window.Synth;
   const PRESETS = window.PRESETS;
-  const SPB = 16, MAX_STEPS = 64;
+  const SPB = 16, MAX_STEPS = 64, VERSION = (document.currentScript && (document.currentScript.src.split('v=')[1] || '')) || 'dev';
   const $ = (s, r) => (r || document).querySelector(s);
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
   const uid = () => Math.random().toString(36).slice(2, 9);
@@ -624,6 +624,8 @@ registerProcessor('ab-cap',C);`;
     const d = (k) => t.closest('[data-' + k + ']');
     let b;
     if ((b = d('inst'))) { pickInstrument(b.dataset.inst); return; }
+    if ((b = d('confirm'))) { doLoadPreset(b.dataset.confirm); return; }
+    if ((b = d('cancel'))) { const c = b.closest('.confirm'); const card = c && c.previousElementSibling; if (card) card.classList.remove('is-armed'); if (c) c.remove(); return; }
     if ((b = d('preset'))) { loadPreset(b.dataset.preset, b); return; }
     if ((b = d('load'))) { loadSaved(b.dataset.load); return; }
     if ((b = d('del'))) { deleteSaved(b.dataset.del, b); return; }
@@ -758,6 +760,7 @@ registerProcessor('ab-cap',C);`;
       '<div class="ctl-row"><span class="ctl-l">Scale</span>' + chips('scale', Object.keys(S.SCALES).map((k) => ({ id: k, name: S.SCALES[k].name })), project.scale) + '</div>' +
       '<p class="hint">Changing key or scale moves every melodic track with it, so everything stays in tune.</p>' +
       '<div class="ctl-grid">' + slider('mVol', 'Master volume', project.master.vol, 0, 1, 0.01, pct) + slider('mRev', 'Reverb amount', project.master.rev, 0, 1, 0.01, pct) + slider('mDly', 'Delay amount', project.master.dly, 0, 1, 0.01, pct) + '</div>' +
+      '<p class="hint">AudioBliss build ' + esc(VERSION) + '</p>' +
       '<div class="ctl-row"><span class="ctl-l">Delay time</span>' + chips('dlyDiv', [['1/16', '1/16'], ['1/8', '1/8'], ['1/8d', 'Dotted 1/8'], ['1/4t', 'Triplet'], ['1/4', '1/4']].map((x) => ({ id: x[0], name: x[1] })), project.master.dlyDiv) + '</div>');
     $('#projNameIn').addEventListener('input', (e) => { project.name = e.target.value || 'Untitled groove'; renderHeader(); touch(); });
     ['mVol', 'mRev', 'mDly'].forEach((id) => $('#' + id).addEventListener('input', (e) => {
@@ -774,7 +777,17 @@ registerProcessor('ab-cap',C);`;
   });
   function loadPreset(id, btn) {
     const hasWork = project.tracks.some((t) => t.steps.some((s) => s.v));
-    if (hasWork && !btn.dataset.armed) { btn.dataset.armed = '1'; btn.classList.add('is-armed'); btn.querySelector('.preset-blurb').textContent = 'Tap again to replace the current pattern.'; return; }
+    if (hasWork && !btn.classList.contains('is-armed')) {
+      $$('.preset.is-armed').forEach((p) => { p.classList.remove('is-armed'); const c = p.querySelector('.confirm'); if (c) c.remove(); });
+      btn.classList.add('is-armed');
+      const c = document.createElement('div'); c.className = 'confirm';
+      c.innerHTML = '<span>Replace the current pattern?</span><button class="btn sm primary" type="button" data-confirm="' + id + '">Load groove</button><button class="btn sm" type="button" data-cancel="1">Keep mine</button>';
+      btn.after(c);
+      return;
+    }
+    doLoadPreset(id);
+  }
+  function doLoadPreset(id) {
     loadProject(fromPreset(PRESETS.find((p) => p.id === id)));
     closeSheet(); toast(project.name + ' loaded.');
     if (!playing) play();

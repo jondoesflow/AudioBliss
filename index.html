@@ -32,7 +32,7 @@ body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--f-
 body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background: radial-gradient(60% 40% at 0% 0%, rgba(160, 107, 255, 0.22), transparent 70%), radial-gradient(50% 35% at 100% 15%, rgba(255, 93, 115, 0.16), transparent 70%), radial-gradient(60% 40% at 50% 100%, rgba(47, 213, 194, 0.12), transparent 70%); }
 button, input { font: inherit; color: inherit; }
-button { cursor: pointer; border: 0; background: none; padding: 0; }
+button, .cell, .pad, .chip { cursor: pointer; border: 0; background: none; padding: 0; touch-action: manipulation; }
 button:focus-visible, input:focus-visible, .cell:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 #app { position: relative; z-index: 1; min-height: 100%; display: flex; flex-direction: column; gap: 10px;
   padding-left: var(--gutter-l); padding-right: var(--gutter-r); padding-block: 10px calc(var(--transport-h) + 28px + env(safe-area-inset-bottom, 0px)); }
@@ -177,7 +177,9 @@ input.text { height: 42px; border-radius: 10px; border: 1px solid var(--line); b
 .inst-btn.is-sel { outline: 2px solid var(--fg); outline-offset: -2px; }
 .preset-list, .saved-list { display: flex; flex-direction: column; gap: 8px; }
 .preset, .saved-main { display: flex; flex-direction: column; gap: 3px; text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; width: 100%; }
-.preset.is-armed { border-color: var(--accent); }
+.preset.is-armed { border-color: var(--accent); border-radius: 12px 12px 0 0; }
+.confirm { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; margin-top: -8px; background: var(--panel-2); border: 1px solid var(--accent); border-top: 0; border-radius: 0 0 12px 12px; font-size: 13px; }
+.confirm span { flex: 1 1 100%; color: var(--muted); }
 .preset-name { font-weight: 700; font-size: 15px; }
 .preset-meta { color: var(--muted); font-size: 12px; font-family: var(--f-mono); }
 .preset-blurb { color: var(--muted); font-size: 13px; }
@@ -273,9 +275,9 @@ input.text { height: 42px; border-radius: 10px; border: 1px solid var(--line); b
 <div id="toast" hidden></div>
 <audio id="silent" src="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA/+M4wAAAAAAAAAAAAEluZm8AAAAPAAAABQAAAkAAgICAgICAgICAgICAgICAgICAgKCgoKCgoKCgoKCgoKCgoKCgoKCgwMDAwMDAwMDAwMDAwMDAwMDAwMDg4ODg4ODg4ODg4ODg4ODg4ODg4P//////////////////////////AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQCwAAAAAAAAAJAvfdF8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/+MYxAAAAANIAAAAAExBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVV/+MYxDsAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV/+MYxHYAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV/+MYxLEAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV/+MYxMQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" preload="auto" playsinline loop aria-hidden="true"></audio>
 
-<script src="js/synth.js"></script>
-<script src="js/presets.js"></script>
-<script src="js/app.js"></script>
+<script src="js/synth.js?v=4"></script>
+<script src="js/presets.js?v=4"></script>
+<script src="js/app.js?v=4"></script>
 <!--AB:END-->
 </body>
 </html>

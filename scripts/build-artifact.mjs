@@ -6,6 +6,6 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const html = readFileSync(resolve(root, 'index.html'), 'utf8');
 const inner = html.split('<!--AB:START-->')[1].split('<!--AB:END-->')[0];
-const out = inner.replace(/<script src="([^"]+)"><\/script>/g, (_, src) => '<script>\n' + readFileSync(resolve(root, src), 'utf8') + '\n</script>');
+const out = inner.replace(/<script src="([^"?]+)(\?[^"]*)?"><\/script>/g, (_, src, q) => '<script>\n' + readFileSync(resolve(root, src), 'utf8').replace("|| 'dev'", "|| 'artifact" + (q || '').replace('?v=', ' v') + "'") + '\n</script>');
 writeFileSync(process.argv[2] || resolve(root, 'dist/artifact.html'), out.trim() + '\n');
 console.log('wrote', process.argv[2], out.length, 'bytes');
