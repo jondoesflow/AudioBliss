@@ -612,24 +612,28 @@ registerProcessor('ab-cap',C);`;
     if (t.id === 'btnChangeInst') { openInstPicker(sheetTrack); return; }
     if (t.id === 'rollUp') { rollOct++; renderRoll(); return; }
     if (t.id === 'rollDown') { rollOct--; renderRoll(); return; }
-    if (t.dataset.oct && sheetTrack) { sheetTrack.oct = S.clamp(sheetTrack.oct + Number(t.dataset.oct), 0, 7); $('#octVal').textContent = sheetTrack.oct; renderRoll(); renderTrack(sheetTrack); touch(); return; }
-    if (t.dataset.pat && sheetTrack) { patternTool(sheetTrack, t.dataset.pat); return; }
+    const octBtn = t.closest('[data-oct]');
+    if (octBtn && sheetTrack) { sheetTrack.oct = S.clamp(sheetTrack.oct + Number(octBtn.dataset.oct), 0, 7); $('#octVal').textContent = sheetTrack.oct; renderRoll(); renderTrack(sheetTrack); touch(); return; }
+    const patBtn = t.closest('[data-pat]');
+    if (patBtn && sheetTrack) { patternTool(sheetTrack, patBtn.dataset.pat); return; }
     if (t.id === 'btnDelTrack' && sheetTrack) {
       if (t.dataset.armed) { const id = sheetTrack.id; project.tracks = project.tracks.filter((x) => x.id !== id); if (engine) engine.removeTrack(id); closeSheet(); renderTracks(); touch(); }
       else { t.dataset.armed = '1'; t.textContent = 'Tap again to delete'; }
       return;
     }
-    if (t.dataset.inst) { pickInstrument(t.dataset.inst); return; }
-    if (t.dataset.preset) { loadPreset(t.dataset.preset, t); return; }
-    if (t.dataset.load) { loadSaved(t.dataset.load); return; }
-    if (t.dataset.del) { deleteSaved(t.dataset.del, t); return; }
+    const d = (k) => t.closest('[data-' + k + ']');
+    let b;
+    if ((b = d('inst'))) { pickInstrument(b.dataset.inst); return; }
+    if ((b = d('preset'))) { loadPreset(b.dataset.preset, b); return; }
+    if ((b = d('load'))) { loadSaved(b.dataset.load); return; }
+    if ((b = d('del'))) { deleteSaved(b.dataset.del, b); return; }
     if (t.id === 'btnSaveProj') { saveProject(); return; }
     if (t.id === 'btnExportJson') { saveFile(new Blob([JSON.stringify(project)], { type: 'application/json' }), fileSafe(project.name) + '.json'); return; }
-    if (t.dataset.loops) { exportLoop(Number(t.dataset.loops), t); return; }
-    if (t.dataset.tempo) { setBpm(Number(t.dataset.tempo)); return; }
+    if ((b = d('loops'))) { exportLoop(Number(b.dataset.loops), b); return; }
+    if ((b = d('tempo'))) { setBpm(Number(b.dataset.tempo)); return; }
     if (t.id === 'tapTempo') { tapTempo(); return; }
-    if (t.dataset.bpmd) { setBpm(project.bpm + Number(t.dataset.bpmd)); return; }
-    if (t.dataset.bars) { setBars(Number(t.dataset.bars)); return; }
+    if ((b = d('bpmd'))) { setBpm(project.bpm + Number(b.dataset.bpmd)); return; }
+    if ((b = d('bars'))) { setBars(Number(b.dataset.bars)); return; }
     if (t.id === 'btnNewProj') { newBlank(); return; }
   });
   function onChip(group, val, chipEl) {
