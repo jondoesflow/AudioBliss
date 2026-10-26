@@ -12,7 +12,7 @@ Everything is synthesised with the Web Audio API. There are no samples to downlo
 - **Key and scale** for the whole project. Change them and every melodic track follows.
 - **BPM control** from 40 to 240 with hold-to-repeat buttons, a slider, tap tempo and genre presets.
 - **Per-track mixing**: volume, tone, reverb send, tempo-synced delay send, pan, mute and solo.
-- **16 genre grooves** as starting points: liquid drum & bass, deep house, boom bap, techno, trap, lo-fi, UK garage, dubstep, synthwave, afrobeats, reggaeton, ambient, jungle, dub, acid house and an empty kit.
+- **17 genre grooves** as starting points: liquid drum & bass, a Bicep "Glue"-style breakbeat, deep house, boom bap, techno, trap, lo-fi, UK garage, dubstep, synthwave, afrobeats, reggaeton, ambient, jungle, dub, acid house and an empty kit.
 - **Live pads** for playing a drum kit or any melodic track over the loop.
 - **Record** the master output while you perform (mutes, pads, tempo changes all captured) and save the take as a 16-bit WAV.
 - **Export** the pattern rendered offline, exactly on the grid, as 1, 2, 4 or 8 loops with the reverb tail.

@@ -22,6 +22,24 @@
       ],
     },
     {
+      id: 'glue', name: 'Glue (Bicep style)', bpm: 130, root: 5, scale: 'minor', bars: 4, swing: 22,
+      blurb: 'Broken breakbeat drums, deep sub, dreamy 7th pads, delayed arp hook and a choir vocal over i-VI-III-VII.',
+      master: { rev: 0.65, dly: 0.55, dlyDiv: '1/8d' },
+      tracks: [
+        T('kickPunch', 'x.........x.....' + 'x.....x...x.....' + 'x.........x.....' + 'x.....x...x...x.', { vol: 0.9 }),
+        T('snare', '....X..g....X...' + '....X.......X.g.' + '....X..g....X...' + '....X.......X.gg', { vol: 0.75, rev: 0.3 }),
+        T('hatC', 'x.xgx.xgx.xgx.xg' + 'x.xgx.xgx.xgx.xg' + 'x.xgx.xgx.xgx.xg' + 'x.xgx.xgx.xgxxxg', { vol: 0.4 }),
+        T('hatO', '..x...x...x...x.' + '..x...x...x...x.' + '..x...x...x...x.' + '..x...x...x.....', { vol: 0.28 }),
+        T('shaker', 'gxgxgxgxgxgxgxgx' + 'gxgxgxgxgxgxgxgx' + 'gxgxgxgxgxgxgxgx' + 'gxgxgxgxgxgxgxgx', { vol: 0.22 }),
+        T('riser', '................' + '................' + '................' + 'x...............', { vol: 0.35 }),
+        N('sub', [[0, 0, 6], [10, 0, 4], [16, -2, 6], [26, -2, 4], [32, 2, 6], [42, 2, 4], [48, -1, 6], [58, -1, 4]], { vol: 0.85, oct: 1 }),
+        N('dreamPad', [[0, 0, 16], [16, -2, 16], [32, 2, 16], [48, -1, 16]], { vol: 0.35, chord: 'sev', oct: 3, rev: 0.75 }),
+        N('glass', [[3, 0, 1], [6, 0, 2], [11, 0, 1], [19, -2, 1], [22, -2, 2], [27, -2, 1], [35, 2, 1], [38, 2, 2], [43, 2, 1], [51, -1, 1], [54, -1, 2], [59, -1, 1]], { vol: 0.35, chord: 'triad', oct: 3, rev: 0.5, dly: 0.45 }),
+        N('arp', [[0, 7, 2], [3, 6, 1], [6, 4, 2], [10, 2, 2], [12, 4, 2], [16, 5, 2], [19, 4, 1], [22, 2, 2], [26, 0, 2], [28, 2, 2], [32, 4, 2], [35, 6, 1], [38, 7, 2], [42, 9, 2], [44, 7, 2], [48, 6, 2], [51, 4, 1], [54, 3, 2], [58, 1, 2], [60, 4, 4]], { vol: 0.42, oct: 4, rev: 0.5, dly: 0.55 }),
+        N('choir', [[8, 9, 6], [40, 11, 6]], { vol: 0.3, oct: 4, rev: 0.8, dly: 0.3 }),
+      ],
+    },
+    {
       id: 'deephouse', name: 'Deep House', bpm: 124, root: 2, scale: 'minor', bars: 2, swing: 12,
       blurb: 'Four-to-the-floor, offbeat open hats, sub on the upbeats and 7th chord stabs.',
       tracks: [
